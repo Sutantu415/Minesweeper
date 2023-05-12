@@ -32,13 +32,13 @@ class minesweeperModel:
                     count+=1
         return count
     
-    def gameState(self):
+    def gameState(self, listOfButtons):
         # -1 means you lost the game
         # 0 means game is in progress
         # 1 means the game has been won
-        if(self.squaresClicked >= 90 and self.stateOfGame != -1):
+        if(len(listOfButtons) >= 90 and self.stateOfGame != -1):
             return 1
-        elif(self.stateOfGame == -1 and self.squaresClicked < 90):
+        elif(self.stateOfGame == -1 and len(listOfButtons) < 90):
             return -1
         else:
             return 0
