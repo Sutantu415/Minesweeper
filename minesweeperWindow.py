@@ -120,6 +120,9 @@ class minesweeperWindow(QMainWindow):
                 #If it has no bombs surrounding it then add all the surrounding squares to the list
                 if result == 0:
                     self.reveal(self.centralWidget().findChild(QPushButton, str(temp[0]) + str(temp[1])))
+                    list = [[temp[0]-1, temp[1]-1], [temp[0]-1, temp[1]], [temp[0]-1, temp[1]+1], [temp[0], temp[1]-1], [temp[0], temp[1]+1], [temp[0]+1, temp[1]-1], [temp[0]+1, temp[1]], [temp[0]+1, temp[1]+1]]
+                    newList = self.buttonsNotChecked(list)
+                    self.checkSquare(newList)
                 #Reveal the square and print how many bombs are near it
                 else:
                     self.reveal(self.centralWidget().findChild(QPushButton, str(temp[0]) + str(temp[1])))
@@ -129,3 +132,12 @@ class minesweeperWindow(QMainWindow):
         #No need to check if you've lost because it won't reveal a square with a bomb on it
         if(self.model.gameState(self.buttons) == 1):
             self.gameStatus.setText("Game Won!")
+
+    #Makes a new list that removes the buttons already disabled from the list passed to the method
+    def buttonsNotChecked(self, newListOfButtons):
+        checkedList = []
+        for x in newListOfButtons:
+            button = self.centralWidget().findChild(QPushButton, str(x[0]) + str(x[1]))
+            if button not in self.buttons:
+                checkedList.append(x)
+        return checkedList
